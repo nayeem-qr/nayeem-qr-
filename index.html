@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nayeem Islam – QR Generator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://api.qrserver.com/v1/create-qr-code/?data=test&size=300x300"></script>
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#0f172a,#020617);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+.app{
+    background:#020617;
+    padding:25px;
+    border-radius:16px;
+    max-width:400px;
+    width:100%;
+    box-shadow:0 0 25px rgba(0,255,255,.2);
+}
+h1{
+    text-align:center;
+    margin-bottom:20px;
+    color:#38bdf8;
+}
+input,select{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    margin-bottom:10px;
+    outline:none;
+}
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#38bdf8;
+    font-size:16px;
+    cursor:pointer;
+    font-weight:bold;
+}
+button:hover{
+    background:#0ea5e9;
+}
+.qr-box{
+    margin-top:20px;
+    text-align:center;
+}
+.qr-box img{
+    max-width:100%;
+    border-radius:12px;
+    background:white;
+    padding:10px;
+}
+.download{
+    margin-top:10px;
+    display:block;
+    text-align:center;
+    text-decoration:none;
+    background:#22c55e;
+    padding:10px;
+    border-radius:10px;
+    color:white;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+<h1>Nayeem Islam</h1>
+
+<input type="text" id="text" placeholder="Enter your text or link">
+
+<select id="size">
+<option value="200">Small</option>
+<option value="300" selected>Medium</option>
+<option value="400">Large</option>
+</select>
+
+<input type="color" id="color" value="#000000">
+
+<button onclick="generateQR()">Generate QR</button>
+
+<div class="qr-box">
+<img id="qr" src="">
+<a id="download" class="download" download="qr.png">Download QR</a>
+</div>
+
+</div>
+
+<script>
+function generateQR(){
+    let text = document.getElementById("text").value;
+    let size = document.getElementById("size").value;
+    let color = document.getElementById("color").value.replace("#","");
+    
+    if(text === ""){
+        alert("Please enter something!");
+        return;
+    }
+
+    let url = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(text)}&size=${size}x${size}&color=${color}`;
+
+    document.getElementById("qr").src = url;
+    document.getElementById("download").href = url;
+}
+</script>
+
+</body>
+</html>
